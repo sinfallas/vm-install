@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Made by Sinfallas <sinfallas@yahoo.com>
+# Licence: GPL-2
+set -eu
+LC_ALL=C
+if [[ "$EUID" != "0" ]]; then
+	echo -e "\e[00;31mERROR: DEBES SER ROOT\e[00m"
+	exit 1
+fi
+quien=$(who | cut -d' ' -f1 | sort | uniq)
+ver=$(lsb_release -c | awk '{print $2}')
+echo "deb https://download.virtualbox.org/virtualbox/debian $ver contrib" > /etc/apt/sources.list.d/vbox.list 
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+apt -q update
+apt -y install virtualbox-5.2 linux-headers-generic
+addgroup vboxusers
+adduser $quien vboxusers
+/etc/init.d/vboxdrv setup
+echo -e "\e[00;1;92mFinalizado...\e[00m"

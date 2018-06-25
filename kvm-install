@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Made by Sinfallas <sinfallas@yahoo.com>
+# Licence: GPL-2
+set -eu
+LC_ALL=C
+if [[ "$EUID" != "0" ]]; then
+	echo -e "\e[00;31mERROR: DEBES SER ROOT\e[00m"
+	exit 1
+fi
+echo "Introduzca su nombre de usuario:"
+read nombre
+casa="/home/$nombre"
+apt update
+apt -y install kvm qemu qemu-kvm qemu-kvm-spice grub-firmware-qemu qemu-system qemu-user qemuctl vde2 spice-client-gtk python-spice-client-gtk virt-manager virt-goodies virt-viewer
+addgroup kvm
+adduser $nombre kvm
+addgroup vde2-net
+adduser $nombre vde2-net
+mkdir -p /var/lib/libvirt/images
+setcap cap_net_admin=ei /usr/bin/qemu-system-x86_64
+echo cap_net_admin $nombre >> /etc/security/capability.conf
+sed -i 's/VHOST_NET_ENABLED=0/VHOST_NET_ENABLED=1/g' /etc/default/qemu-kvm
+echo -e "\e[00;1;92mFinished...\e[00m"
+exit 0
