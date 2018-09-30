@@ -1,4 +1,10 @@
-commit b7c05f1c5ba09a38ca759da28c3d2c22d27ea045 (HEAD -> master, origin/master)
+commit c7e5560e184bf07bbcfc51af437656bd0535fed3 (HEAD -> master, origin/master, origin/HEAD)
+Author: jesus palencia <jesus.palencia@grupopro.com.ve>
+Date:   Mon Jun 25 09:15:59 2018 -0400
+
+    * changelog
+
+commit b7c05f1c5ba09a38ca759da28c3d2c22d27ea045
 Author: jesus palencia <jesus.palencia@grupopro.com.ve>
 Date:   Mon Jun 25 09:15:47 2018 -0400
 
